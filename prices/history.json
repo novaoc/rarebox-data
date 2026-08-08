@@ -1,0 +1,14 @@
+{
+  "description": "Per-card price time series live in the sibling repo rarebox-price-history: change-point [epochDay, usd] arrays per variant, daily granularity for the last 90 days and weekly beyond, ingested from tcgcsv's daily archives. epochDay * 86400000 = JS Date ms.",
+  "repo": "https://github.com/novaoc/rarebox-price-history",
+  "url_pattern": "https://raw.githubusercontent.com/novaoc/rarebox-price-history/main/data/{game}/{setKey}.json",
+  "games": {
+    "pokemon": { "earliest": "2024-02-07", "setKey": "pokemontcg.io set id (sv8, me2)", "cardKey": "normalized collector number" },
+    "pokemon-ja": { "earliest": "2024-12-11", "setKey": "tcgdex set id, lowercase (sv8a)", "cardKey": "normalized collector number", "note": "TCGplayer's JP category launched 2024-12 — no earlier public price data exists" },
+    "mtg": { "earliest": "2024-02-07", "setKey": "scryfall set code", "cardKey": "normalized collector number" },
+    "yugioh": { "earliest": "2024-02-07", "setKey": "slug(set name)", "cardKey": "YGO set code" },
+    "lorcana": { "earliest": "2024-02-07", "setKey": "lorcast set code", "cardKey": "normalized collector number" },
+    "one-piece": { "earliest": "2024-02-07", "setKey": "optcgapi set id", "cardKey": "OP01-001-style card id (variants suffixed)" },
+    "riftbound": { "earliest": "2025-10-08", "setKey": "riftcodex set id", "cardKey": "tcgplayer productId", "note": "game launched 2025-10 — series start at launch" }
+  }
+}

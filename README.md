@@ -6,13 +6,17 @@ normalized catalogs and market prices for every collection Rarebox tracks —
 plus sealed products** — refreshed daily, versioned in git, and served as
 static JSON to any builder over raw.githubusercontent / jsDelivr (CORS `*`).
 
-Why this exists: every collection app builds on the same upstream APIs, and
-those APIs have holes and outages — pokemontcg.io has **no set at all** for the
-Mega-era promos (the Phantasmal Flames tin Mega Charizard ex is invisible to
-every app built on it), tcgdex omits Japanese secret rares its own CDN has
-scans for, and both 500 routinely. This repo publishes the merged, corrected
-picture — including the hand-verified join tables and absence lists that fix
-those holes — so nobody has to rediscover them.
+**Why this exists.** Public data sources are shutting down or decaying, and
+the ones still up have holes and outages — pokemontcg.io has **no set at all**
+for the Mega-era promos (the Phantasmal Flames tin Mega Charizard ex is
+invisible to every app built on it), tcgdex omits Japanese secret rares its
+own CDN has scans for, and both 500 routinely. This repo is a preservation
+effort: capture the public record of the entire TCG market — including the
+special cases, obscure releases, and rare promos the big catalogs skip — and
+keep it permanently free and publicly available, with the hand-verified join
+tables and absence lists that fix the holes, so nobody has to rediscover them
+and nothing disappears when an upstream does. At-risk hobby APIs additionally
+get their raw responses preserved under `raw/`.
 
 ## Consuming
 
@@ -43,13 +47,13 @@ because it is the part nobody else publishes.
 
 ## Sources & licensing
 
-Card names, numbers, and set structures are facts. Prices are point-in-time
-market data © TCGplayer, obtained via [tcgcsv.com](https://tcgcsv.com)'s daily
-archives, republished here for interoperability with attribution — same
-posture as tcgcsv itself. Card **images are never stored** in this repo; only
-URLs to their existing hosts, for identification purposes. Catalog sources:
-pokemontcg.io / pokemon-tcg-data, tcgdex, Scryfall, YGOPRODeck, Lorcast,
-optcgapi, riftcodex, TCGplayer (via tcgcsv). If you own any of this data and
-want something changed, open an issue.
+Card names, collector numbers, set structures, and market prices are **facts —
+public information that belongs to no one**. This dataset compiles those facts
+and dedicates the compilation to the public domain (**CC0 1.0**): use it for
+anything, no permission needed, forever. Card **images are never stored** in
+this repo; only URLs to their existing hosts, for identification purposes.
 
-Code: MIT. Dataset: CC BY 4.0 with the upstream attributions above.
+Provenance (kept for data lineage, not permission): pokemon-tcg-data /
+pokemontcg.io, tcgdex, Scryfall, YGOPRODeck, Lorcast, optcgapi, riftcodex,
+and TCGplayer market data via [tcgcsv.com](https://tcgcsv.com)'s daily
+archives. Code: MIT.

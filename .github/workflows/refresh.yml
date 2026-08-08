@@ -1,0 +1,54 @@
+name: refresh
+
+on:
+  schedule:
+    - cron: '30 7 * * *'  # daily, after tcgcsv's ~20:00 UTC archive + rarebox's own refresh
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run pipelines
+        working-directory: pipelines
+        run: python3 run_all.py
+
+      - name: Validate
+        run: python3 validators/validate.py
+
+      - name: Commit + monthly snapshot tag
+        run: |
+          git config user.name "rarebox-data-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "no changes today"; exit 0
+          fi
+          DATE=$(date -u +%F)
+          git commit -m "refresh: $DATE"
+          TAG="snapshot-$(date -u +%Y-%m)"
+          if ! git rev-parse "$TAG" >/dev/null 2>&1; then
+            git tag "$TAG"
+          fi
+          git push --follow-tags
+
+      - name: Open triage issue on failure
+        if: failure()
+        run: |
+          gh issue create \
+            --title "refresh failed: $(date -u +%F)" \
+            --body "Daily refresh or validation failed — see the [run log](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}). Yesterday's data remains committed. See PLAN.md §6 for triage." \
+            --label needs-triage || true
+        env:
+          GH_TOKEN: ${{ github.token }}

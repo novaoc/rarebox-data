@@ -22,16 +22,16 @@ SOFTWARE.
 
 ---
 
-Dataset (catalog/, prices/, maps/): CC BY 4.0
-https://creativecommons.org/licenses/by/4.0/
+Dataset (catalog/, prices/, maps/, raw/): CC0 1.0 Universal
+https://creativecommons.org/publicdomain/zero/1.0/
 
-The dataset aggregates factual information (card names, collector numbers,
-set structures) and point-in-time market prices. Prices © TCGplayer, obtained
-via tcgcsv.com's public daily archives. Catalog facts derive from
-pokemontcg.io / PokemonTCG/pokemon-tcg-data, tcgdex.net, Scryfall,
-YGOPRODeck, Lorcast, optcgapi, riftcodex, and TCGplayer. Card images are not
-included in this repository; image URLs reference their original hosts and
-remain © their respective owners (The Pokémon Company, Wizards of the Coast,
-Konami, Disney, Bandai, Riot Games). This dataset exists for interoperability
-and personal collection tracking. Rights holders: open an issue for removal
-requests.
+The dataset compiles factual public information — card names, collector
+numbers, set structures, and point-in-time market prices. Facts belong to no
+one; to whatever extent this compilation carries rights of its own, they are
+waived and the compilation is dedicated to the public domain. Provenance is
+recorded per file for data lineage: pokemon-tcg-data / pokemontcg.io,
+tcgdex.net, Scryfall, YGOPRODeck, Lorcast, optcgapi, riftcodex, and TCGplayer
+market data via tcgcsv.com. Card images are not included in this repository;
+image URLs reference their original hosts and remain © their respective
+owners (The Pokémon Company, Wizards of the Coast, Konami, Disney, Bandai,
+Riot Games).
