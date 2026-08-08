@@ -1,64 +1,71 @@
 # rarebox-data
 
-The open TCG dataset behind [Rarebox](https://github.com/novaoc/rarebox):
-normalized catalogs and market prices for every collection Rarebox tracks —
-**Pokémon (EN + JP), Magic, Yu-Gi-Oh!, Lorcana, One Piece (EN + JP), Riftbound,
-plus sealed products** — refreshed daily, versioned in git, and served as
-static JSON to any builder over raw.githubusercontent / jsDelivr (CORS `*`).
+Public, CC0 TCG dataset: normalized card catalogs and market prices for
+**Pokémon (EN + JP), Magic, Yu-Gi-Oh!, Lorcana, One Piece (EN + JP), and
+Riftbound** — ~195,000 cards, refreshed daily, versioned in git, served as
+plain JSON over raw.githubusercontent / jsDelivr (CORS `*`, no keys, no SDK).
 
-**Why this exists.** Public data sources are shutting down or decaying, and
-the ones still up have holes and outages — pokemontcg.io has **no set at all**
-for the Mega-era promos (the Phantasmal Flames tin Mega Charizard ex is
-invisible to every app built on it), tcgdex omits Japanese secret rares its
-own CDN has scans for, and both 500 routinely. This repo is a preservation
-effort: capture the public record of the entire TCG market — including the
-special cases, obscure releases, and rare promos the big catalogs skip — and
-keep it permanently free and publicly available, with the hand-verified join
-tables and absence lists that fix the holes, so nobody has to rediscover them
-and nothing disappears when an upstream does. At-risk hobby APIs additionally
-get their raw responses preserved under `raw/`.
+**Full documentation — architecture and how to use it in any application:**
+**[docs.rarebox.io/data/rarebox-data](https://docs.rarebox.io/data/rarebox-data)**
 
-## Consuming
-
-Everything is plain JSON at stable paths (see [SCHEMA.md](SCHEMA.md)):
+## What's in it
 
 ```
-https://raw.githubusercontent.com/novaoc/rarebox-data/main/catalog/pokemon/sets.json
-https://raw.githubusercontent.com/novaoc/rarebox-data/main/catalog/pokemon/sets/me2.json
-https://raw.githubusercontent.com/novaoc/rarebox-data/main/prices/pokemon/latest.json
-https://raw.githubusercontent.com/novaoc/rarebox-data/main/maps/en-extra-groups.json
+catalog/{game}/sets.json           set lists (id, name, totals, releaseDate, logo URL)
+catalog/{game}/sets/{setId}.json   per-set card lists, one shared shape across all games
+prices/{game}/latest.json          {stamp, prices: {"me2-13": 4.79}} — $0 valid, unknown absent
+prices/history.json                pointer to per-card daily series back to 2024-02
+maps/                              hand-verified upstream join tables + absence allowlists
+raw/                               full upstream responses for at-risk hobby APIs
+STATUS.json                        per-pipeline counts and last-success stamps
 ```
 
-**History is git-native.** Every daily refresh is one commit; monthly tags
-(`snapshot-YYYY-MM`) give stable point-in-time refs. Any past state is a URL:
+Games: `pokemon` · `pokemon-ja` · `mtg` · `yugioh` · `lorcana` · `one-piece` · `riftbound`.
 
+Coverage goes beyond the primary catalogs: `x-` prefixed sets carry
+TCGplayer-only cards pokemontcg.io doesn't have (ME Black Star Promos,
+McDonald's 2023/24, Prize Pack Series, …), and the Japanese Pokémon catalog
+includes the 6,450 secret rares the tcgdex API omits.
+
+## Quick start
+
+```js
+// a set's cards — same shape for every game
+const cards = await fetch(
+  'https://raw.githubusercontent.com/novaoc/rarebox-data/main/catalog/pokemon-ja/sets/SV8.json'
+).then(r => r.json())
+// { id: 'SV8-136', name: 'Pikachu ex', number: '136',
+//   set: {id, name}, rarity, image, game: 'pokemon', _lang: 'ja' }
+
+// latest prices — keys are `${setId}-${normalizedNumber}`
+const { prices } = await fetch(
+  'https://raw.githubusercontent.com/novaoc/rarebox-data/main/prices/pokemon/latest.json'
+).then(r => r.json())
 ```
-https://raw.githubusercontent.com/novaoc/rarebox-data/snapshot-2026-08/prices/pokemon/latest.json
-```
 
-Per-card **price history** (change-point series, daily since 2024-02) lives in
-the sibling repo [rarebox-price-history](https://github.com/novaoc/rarebox-price-history).
+## History
 
-## Status
+- **Point-in-time snapshots**: every day is one commit; monthly tags give
+  stable refs — swap `main` for `snapshot-2026-08` in any URL.
+- **Per-card price series** (change-point `[epochDay, usd]` arrays, daily
+  since **2024-02-07**): sibling repo
+  [rarebox-price-history](https://github.com/novaoc/rarebox-price-history),
+  indexed by [prices/history.json](prices/history.json).
 
-**Live.** Daily refresh at 07:30 UTC ([refresh.yml](.github/workflows/refresh.yml)),
-validators gating every commit, monthly `snapshot-YYYY-MM` tags. Seeded
-2026-08-08 with ~195,000 cards across 7 games — including 919 TCGplayer-only
-cards no primary catalog has (`x-` sets) and 6,450 Japanese secret rares the
-tcgdex API omits. Per-card price history reaches back to **2024-02-07** via
-[rarebox-price-history](https://github.com/novaoc/rarebox-price-history)
-(see [prices/history.json](prices/history.json)). Roadmap: [PLAN.md](PLAN.md);
-triage protocol for humans and agents: [agents/TRIAGE.md](agents/TRIAGE.md).
+## How it's maintained
 
-## Sources & licensing
+A daily pipeline (07:30 UTC, [refresh.yml](.github/workflows/refresh.yml))
+fetches each source at ≤10 req/s, normalizes to the shared shape, and commits
+only if validators pass: catalogs may not shrink >2%, prices may not
+mass-move >5×, `$0` stays valid, and absence claims carry dated evidence.
+One flaky upstream never blocks the rest — a failed pipeline keeps
+yesterday's data. Mapping drift is triaged per
+[agents/TRIAGE.md](agents/TRIAGE.md); roadmap in [PLAN.md](PLAN.md).
 
-Card names, collector numbers, set structures, and market prices are **facts —
-public information that belongs to no one**. This dataset compiles those facts
-and dedicates the compilation to the public domain (**CC0 1.0**): use it for
-anything, no permission needed, forever. Card **images are never stored** in
-this repo; only URLs to their existing hosts, for identification purposes.
+## Licensing
 
-Provenance (kept for data lineage, not permission): pokemon-tcg-data /
-pokemontcg.io, tcgdex, Scryfall, YGOPRODeck, Lorcast, optcgapi, riftcodex,
-and TCGplayer market data via [tcgcsv.com](https://tcgcsv.com)'s daily
-archives. Code: MIT.
+Dataset: **CC0 1.0** — public-domain dedication, use it for anything.
+Code: MIT. Card **images are never stored**; image URLs point to their
+original hosts. Provenance per file: pokemon-tcg-data / pokemontcg.io,
+tcgdex, Scryfall, YGOPRODeck, Lorcast, optcgapi, riftcodex, and TCGplayer
+market data via [tcgcsv.com](https://tcgcsv.com).
