@@ -41,9 +41,14 @@ the sibling repo [rarebox-price-history](https://github.com/novaoc/rarebox-price
 
 ## Status
 
-Being built — see [PLAN.md](PLAN.md) for the pipeline design and phases.
-The `maps/` directory (the hand-verified upstream join tables) is seeded first
-because it is the part nobody else publishes.
+**Live.** Daily refresh at 07:30 UTC ([refresh.yml](.github/workflows/refresh.yml)),
+validators gating every commit, monthly `snapshot-YYYY-MM` tags. Seeded
+2026-08-08 with ~195,000 cards across 7 games — including 919 TCGplayer-only
+cards no primary catalog has (`x-` sets) and 6,450 Japanese secret rares the
+tcgdex API omits. Per-card price history reaches back to **2024-02-07** via
+[rarebox-price-history](https://github.com/novaoc/rarebox-price-history)
+(see [prices/history.json](prices/history.json)). Roadmap: [PLAN.md](PLAN.md);
+triage protocol for humans and agents: [agents/TRIAGE.md](agents/TRIAGE.md).
 
 ## Sources & licensing
 

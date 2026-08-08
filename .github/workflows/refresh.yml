@@ -37,6 +37,9 @@ jobs:
           fi
           DATE=$(date -u +%F)
           git commit -m "refresh: $DATE"
+          # main may have moved during a long run (docs pushes) — rebase the
+          # data commit onto it rather than failing the day's refresh
+          git pull --rebase origin main
           TAG="snapshot-$(date -u +%Y-%m)"
           if ! git rev-parse "$TAG" >/dev/null 2>&1; then
             git tag -a "$TAG" -m "monthly snapshot $TAG"
