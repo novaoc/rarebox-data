@@ -39,8 +39,9 @@ jobs:
           git commit -m "refresh: $DATE"
           TAG="snapshot-$(date -u +%Y-%m)"
           if ! git rev-parse "$TAG" >/dev/null 2>&1; then
-            git tag "$TAG"
+            git tag -a "$TAG" -m "monthly snapshot $TAG"
           fi
+          # --follow-tags only pushes ANNOTATED tags — hence -a above
           git push --follow-tags
 
       - name: Open triage issue on failure
