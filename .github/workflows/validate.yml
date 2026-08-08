@@ -1,0 +1,29 @@
+name: validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: JSON + schema sanity
+        run: |
+          python3 - <<'EOF'
+          import json, sys, pathlib
+          bad = False
+          for p in pathlib.Path('.').rglob('*.json'):
+              if '.git' in p.parts: continue
+              try:
+                  json.load(open(p))
+              except Exception as e:
+                  print(f'INVALID JSON: {p}: {e}'); bad = True
+          # absence allowlist entries must carry evidence + date
+          extras = json.load(open('maps/en-extra-groups.json'))
+          for gid, e in extras.items():
+              if not (e.get('evidence') and e.get('verified')):
+                  print(f'extra group {gid} lacks evidence/verified'); bad = True
+          sys.exit(1 if bad else 0)
+          EOF

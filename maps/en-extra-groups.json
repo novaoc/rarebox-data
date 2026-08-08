@@ -1,0 +1,72 @@
+{
+ "22880": {
+  "evidence": "name-searched pokemon-tcg-data sets/en.json \u2014 no matching set",
+  "note": "Prize Pack Series Cards",
+  "verified": "2026-08-08"
+ },
+ "23266": {
+  "evidence": "name-searched pokemon-tcg-data sets/en.json \u2014 no matching set",
+  "note": "Trick or Trade BOOster Bundle 2023",
+  "verified": "2026-08-08"
+ },
+ "23306": {
+  "evidence": "name-searched pokemon-tcg-data sets/en.json \u2014 no matching set",
+  "note": "McDonald's Promos 2023",
+  "verified": "2026-08-08"
+ },
+ "23323": {
+  "evidence": "name-searched pokemon-tcg-data sets/en.json \u2014 no matching set",
+  "note": "Trading Card Game Classic (abbrev CL false-joins to col1's ptcgoCode)",
+  "verified": "2026-08-08"
+ },
+ "23330": {
+  "evidence": "name-searched pokemon-tcg-data sets/en.json \u2014 no matching set",
+  "note": "My First Battle",
+  "verified": "2026-08-08"
+ },
+ "23520": {
+  "evidence": "name-searched pokemon-tcg-data sets/en.json \u2014 no matching set",
+  "note": "Battle Academy 2024",
+  "verified": "2026-08-08"
+ },
+ "23561": {
+  "evidence": "name-searched pokemon-tcg-data sets/en.json \u2014 no matching set",
+  "note": "Trick or Trade BOOster Bundle 2024",
+  "verified": "2026-08-08"
+ },
+ "24163": {
+  "evidence": "name-searched pokemon-tcg-data sets/en.json \u2014 no matching set",
+  "note": "McDonald's Promos 2024 (upstream mcd* stops at 2022)",
+  "verified": "2026-08-08"
+ },
+ "24451": {
+  "evidence": "name-searched pokemon-tcg-data sets/en.json \u2014 no matching set",
+  "note": "ME: Mega Evolution Promo \u2014 Phantasmal Flames tin promos etc.",
+  "verified": "2026-08-08"
+ },
+ "24461": {
+  "evidence": "name-searched pokemon-tcg-data sets/en.json \u2014 no matching set",
+  "note": "MEE: Mega Evolution Energies",
+  "verified": "2026-08-08"
+ },
+ "24529": {
+  "evidence": "name-searched pokemon-tcg-data sets/en.json \u2014 no matching set",
+  "note": "Player Placement Trainer Promos",
+  "verified": "2026-08-08"
+ },
+ "24584": {
+  "evidence": "name-searched pokemon-tcg-data sets/en.json \u2014 no matching set",
+  "note": "First Partner Collection 2026",
+  "verified": "2026-08-08"
+ },
+ "24722": {
+  "evidence": "name-searched pokemon-tcg-data sets/en.json \u2014 no matching set",
+  "note": "ME: 30th Celebration (cel25 is 2021's Celebrations, unrelated)",
+  "verified": "2026-08-08"
+ },
+ "3179": {
+  "evidence": "name-searched pokemon-tcg-data sets/en.json \u2014 no matching set",
+  "note": "Trick or Trade BOOster Bundle (2022)",
+  "verified": "2026-08-08"
+ }
+}
