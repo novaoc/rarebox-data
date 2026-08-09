@@ -35,7 +35,8 @@ def run():
                      str(sid), s.get("name", str(sid)),
                      (c.get("media") or {}).get("image_url"), "riftbound",
                      rarity=(c.get("classification") or {}).get("rarity"),
-                     supertype=(c.get("classification") or {}).get("type")) for c in cards_raw]
+                     supertype=(c.get("classification") or {}).get("type"),
+                     tcgplayer_id=c.get("tcgplayer_id")) for c in cards_raw]
         rows.sort(key=lambda c: (len(c["number"]), c["number"]))
         write_json(f"catalog/riftbound/sets/{sid}.json", rows)
         n += len(rows)

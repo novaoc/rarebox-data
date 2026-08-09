@@ -71,7 +71,7 @@ def status_update(pipeline: str, **fields):
 
 
 def card(id_, name, number, set_id, set_name, image, game,
-         rarity=None, supertype=None, lang=None):
+         rarity=None, supertype=None, lang=None, tcgplayer_id=None):
     """The shared normalized card shape (see SCHEMA.md)."""
     c = {
         "id": id_, "name": name, "number": str(number),
@@ -84,4 +84,8 @@ def card(id_, name, number, set_id, set_name, image, game,
         c["supertype"] = supertype
     if lang:
         c["_lang"] = lang
+    if tcgplayer_id:
+        # TCGplayer productId — the key price/history use for games (riftbound)
+        # that aren't keyed by collector number.
+        c["tcgplayerId"] = str(tcgplayer_id)
     return c
