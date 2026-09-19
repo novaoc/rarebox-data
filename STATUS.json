@@ -6,7 +6,7 @@
    "priced": 2785,
    "sets": 24,
    "source": "lorcast",
-   "updated": "2026-09-18T12:22:07Z"
+   "updated": "2026-09-19T12:03:53Z"
   },
   "mirror": {
    "assets": {
@@ -21,48 +21,48 @@
     "ygo-prices.json": 79965
    },
    "source": "rarebox-ci",
-   "updated": "2026-09-18T12:24:01Z"
+   "updated": "2026-09-19T12:04:35Z"
   },
   "mtg": {
-   "cards": 108883,
-   "priced": 97714,
-   "sets": 989,
+   "cards": 109253,
+   "priced": 97754,
+   "sets": 990,
    "source": "scryfall-bulk",
-   "updated": "2026-09-18T12:21:59Z"
+   "updated": "2026-09-19T12:03:41Z"
   },
   "one-piece": {
    "cards": 3654,
    "priced": 2379,
    "sets": 22,
    "source": "optcgapi",
-   "updated": "2026-09-18T12:22:14Z"
+   "updated": "2026-09-19T12:04:07Z"
   },
   "pokemon-catalog": {
    "cards": 21700,
    "extras": 1065,
    "sets": 187,
    "source": "pokemon-tcg-data+tcgcsv",
-   "updated": "2026-09-18T12:19:53Z"
+   "updated": "2026-09-19T12:00:57Z"
   },
   "pokemon-ja-catalog": {
    "cards": 15659,
    "secrets_appended": 2878,
    "sets": 148,
    "source": "tcgdex+tcgcsv85",
-   "updated": "2026-09-18T12:21:49Z"
+   "updated": "2026-09-19T12:03:30Z"
   },
   "riftbound-catalog": {
    "cards": 1451,
    "sets": 8,
    "source": "riftcodex",
-   "updated": "2026-09-18T12:23:59Z"
+   "updated": "2026-09-19T12:04:33Z"
   },
   "yugioh": {
    "cards": 44491,
    "priced": 12252,
    "sets": 1030,
    "source": "ygoprodeck",
-   "updated": "2026-09-18T12:22:01Z"
+   "updated": "2026-09-19T12:03:43Z"
   }
  }
 }
